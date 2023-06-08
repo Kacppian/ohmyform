@@ -10,11 +10,11 @@ RUN curl -sf https://gobinaries.com/tj/node-prune | sh
 
 COPY ui/ .
 
-RUN yarn install --frozen-lockfile
-RUN yarn build
+RUN CPPFLAGS=-DPNG_ARM_NEON_OPT=0 yarn install --frozen-lockfile
+RUN CPPFLAGS=-DPNG_ARM_NEON_OPT=0 yarn build
 
 # remove development dependencies
-RUN npm prune --production
+RUN CPPFLAGS=-DPNG_ARM_NEON_OPT=0 npm prune --production
 
 # run node prune
 # there is some problem running node prune that then prevents the frontend to load (just start with /form/1 and it will crash)
@@ -35,11 +35,12 @@ COPY api/ .
 
 RUN touch /usr/src/api/src/schema.gql && chown 9999:9999 /usr/src/api/src/schema.gql
 
-RUN yarn install --frozen-lockfile
-RUN yarn build
+RUN CPPFLAGS=-DPNG_ARM_NEON_OPT=0 yarn install --frozen-lockfile
+RUN CPPFLAGS=-DPNG_ARM_NEON_OPT=0 yarn build
 
 # remove development dependencies
-RUN npm prune --production
+RUN CPPFLAGS=-DPNG_ARM_NEON_OPT=0 npm prune 
+# --production
 
 # run node prune
 RUN /usr/local/bin/node-prune
