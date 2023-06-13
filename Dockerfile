@@ -1,5 +1,5 @@
 ## Build UI
-FROM node:16-alpine as ui
+FROM --platform=linux/amd64 node:16-alpine as ui
 
 WORKDIR /usr/src/ui
 
@@ -22,7 +22,7 @@ RUN CPPFLAGS=-DPNG_ARM_NEON_OPT=0 npm prune --production
 
 ## Build API
 FROM node:16-alpine as api
-LABEL maintainer="OhMyForm <admin@ohmyform.com>"
+LABEL maintainer="Kaushik <aspkaushik@gmail.com>"
 
 WORKDIR /usr/src/api
 
@@ -46,7 +46,7 @@ RUN CPPFLAGS=-DPNG_ARM_NEON_OPT=0 npm prune
 RUN /usr/local/bin/node-prune
 
 ## Production Image.
-FROM node:16-alpine
+FROM --platform=linux/amd64 node:16-alpine
 
 RUN apk --update add supervisor nginx && rm -rf /var/cache/apk/*
 

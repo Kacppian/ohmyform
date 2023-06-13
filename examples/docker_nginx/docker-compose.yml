@@ -20,13 +20,13 @@ services:
       - api
     restart: unless-stopped
   ui:
-    image: ohmyform/ui
+    image: whaleykaushik/ohmyform-new-ohmyform-sporty/ui
     environment:
       SERVER_ENDPOINT: http://api:5000/graphql
       PORT: 5000
     restart: unless-stopped
   api:
-    image: ohmyform/api
+    image: whaleykaushik/ohmyform-new-ohmyform-sporty/api
     environment:
       CREATE_ADMIN: "true"
       ADMIN_EMAIL: admin@local.host

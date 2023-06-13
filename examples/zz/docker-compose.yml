@@ -6,7 +6,7 @@
 version: "3"
 services:
   ohmyform-sporty:
-    build: .
+    image: whaleykaushik/ohmyform-new-ohmyform-sporty:v1
     environment:
       CREATE_ADMIN: "TRUE"
       MAILER_URI: smtp://mail:1025
@@ -14,8 +14,6 @@ services:
       DATABASE_URL: postgresql://root:root@db:5432/ohmyform
       LOGIN_NOTE: "login with root:root!"
       SECRET_KEY: 12345
-      PORT: 5000
-      SERVER_ENDPOINT: http://ohmyform-sporty:5000/graphql
     links:
       - db
       - redis
@@ -25,6 +23,7 @@ services:
     depends_on:
       - db
       - redis
+    restart: unless-stopped
   redis:
     image: redis
   mail:
